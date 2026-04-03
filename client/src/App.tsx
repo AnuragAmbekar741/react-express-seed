@@ -1,3 +1,4 @@
+import ContactApp from "./components/contact/ContactApp";
 import "./global.css";
 import { Route, Routes } from "react-router-dom";
 
@@ -11,6 +12,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={SlashRoute()} />
+      <Route path="/contact" element={<ContactApp />} />
     </Routes>
   );
 }
