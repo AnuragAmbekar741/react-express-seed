@@ -23,10 +23,31 @@ export const validatePayload = (schema: ZodSchema) => {
   };
 };
 
-export const validateParam = async (schema: ZodSchema) => {
+export const validateParam = (schema: ZodSchema) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
       const param = req.params;
+      schema.parse(param);
+      next();
+    } catch (err) {
+      if (err instanceof ZodError) {
+        res.status(400).json({
+          error: "Validation error",
+          details: err.issues.map((e) => ({
+            field: e.path.join("."),
+            details: e.message,
+          })),
+        });
+      }
+      next(err);
+    }
+  };
+};
+
+export const validateQuery = (schema: ZodSchema) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const param = req.query;
       schema.parse(param);
       next();
     } catch (err) {
