@@ -3,7 +3,6 @@ import { CreateContacts } from "../db/schema";
 import db from "../db/connection";
 import { contacts } from "../db/schema";
 import { eq, ilike, or } from "drizzle-orm";
-import { error } from "node:console";
 
 export const addContact = async (
   req: Request<any, any, CreateContacts>,
