@@ -1,20 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axiosInstance from "../../lib/axios";
+import type { ContactT } from "./ContactApp";
 
-const ContactForm = () => {
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [note, setNote] = useState<string>("");
+const ContactForm: React.FC<{ update: ContactT | null }> = ({ update }) => {
+  const [contact, setContact] = useState<ContactT>({
+    name: "",
+    email: "",
+    note: "",
+    id: "",
+  });
+
+  useEffect(() => {
+    if (!update) return;
+    setContact(update);
+  }, [update]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const payload = {
-      name: name,
-      email: email,
-      note: note,
-    };
     axiosInstance.post("/contacts", {
-      ...payload,
+      ...contact,
     });
   };
 
@@ -22,17 +26,20 @@ const ContactForm = () => {
     <form onSubmit={handleSubmit}>
       <div className="flex flex-col gap-1">
         <input
-          onChange={(e) => setName(e.target.value)}
+          value={contact.name}
+          onChange={(e) => setContact({ ...contact, name: e.target.value })}
           className="p-2 rounded-md border"
           placeholder="name"
         />
         <input
-          onChange={(e) => setEmail(e.target.value)}
+          value={contact.email}
+          onChange={(e) => setContact({ ...contact, email: e.target.value })}
           className="p-2 rounded-md border"
           placeholder="email"
         />
         <textarea
-          onChange={(e) => setNote(e.target.value)}
+          value={contact.note}
+          onChange={(e) => setContact({ ...contact, note: e.target.value })}
           className="p-2 rounded-md border"
           placeholder="note"
         />

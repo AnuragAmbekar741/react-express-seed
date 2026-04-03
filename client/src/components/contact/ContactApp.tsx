@@ -14,7 +14,7 @@ export interface ContactT {
 const ContactApp: React.FC = () => {
   const [contacts, setContacts] = useState<ContactT[]>([]);
   const [selectedContact, setSelectedContact] = useState<string>("");
-
+  const [update, setUpdate] = useState<ContactT | null>(null);
   const handleSelect = (id: string) => setSelectedContact(id);
 
   useEffect(() => {
@@ -29,9 +29,11 @@ const ContactApp: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex">
+    <div className="flex p-5">
+      <div className="w-1/3">
+        <ContactForm update={update} />
+      </div>
       <div className="flex w-1/3 flex-col gap-4 p-5">
-        <ContactForm />
         {contacts &&
           contacts.length > 0 &&
           contacts.map((c) => (
@@ -45,7 +47,11 @@ const ContactApp: React.FC = () => {
       </div>
       <div>
         <p>Contact details</p>
-        <div>{selectedContact && <ContactDetails id={selectedContact} />}</div>
+        <div>
+          {selectedContact && (
+            <ContactDetails setUpdate={setUpdate} id={selectedContact} />
+          )}
+        </div>
       </div>
     </div>
   );
