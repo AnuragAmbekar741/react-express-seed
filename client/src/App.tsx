@@ -1,4 +1,4 @@
-import ContactApp from "./components/contact/ContactApp";
+import ContactApp from "./components/ContactApp";
 import "./global.css";
 import { Route, Routes } from "react-router-dom";
 
