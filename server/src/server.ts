@@ -3,7 +3,7 @@ import cors from "cors";
 import morgan from "morgan";
 import helmet from "helmet";
 import env from "../env";
-
+import CustomerQueriesRoutes from "./routes/customerQueryRoutes";
 const app = express();
 
 app.use(helmet()); // Security headers
@@ -23,6 +23,8 @@ app.get("/health", (_, res: Response) => {
     message: "OK!",
   });
 });
+
+app.use("/api/customer-queries", CustomerQueriesRoutes);
 
 export default app;
 export { app };
