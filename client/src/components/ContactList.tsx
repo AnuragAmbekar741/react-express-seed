@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { type ContactT } from "./ContactApp";
 import { useGetAllContacts } from "../hooks/useGetAllContacts";
 import axiosInstance from "../lib/axios";
@@ -6,7 +6,8 @@ import axiosInstance from "../lib/axios";
 const ContactList: React.FC<{
   handleSelectContactId: (id: string) => void;
 }> = ({ handleSelectContactId }) => {
-  const { contacts, loading, fetchContacts } = useGetAllContacts();
+  const [search, setSearch] = useState<string>("");
+  const { contacts, loading, fetchContacts } = useGetAllContacts(search);
 
   async function handleUpdateContact(id: string, contacted: boolean) {
     if (!id) return;
@@ -27,6 +28,14 @@ const ContactList: React.FC<{
   return (
     <div className="flex flex-col w-1/3 gap-2 p-2">
       <h1 className="text-xl font-medium py-2 text-center">Contact list</h1>
+      <input
+        className="p-2 border border-slate-200 rounded-md"
+        placeholder="@search"
+        value={search}
+        onChange={(e) => setSearch(e.target.value.trim())}
+        tabIndex={1}
+        autoFocus
+      />
       {contacts &&
         contacts.length > 0 &&
         contacts.map((c: ContactT) => (

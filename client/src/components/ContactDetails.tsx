@@ -52,6 +52,14 @@ const ContactDetails: React.FC<{
           )}
         </div>
       )}
+      <div className="flex w-full items-center justify-between gap-2">
+        <button className="border border-slate-200 rounded-md w-1/2 px-3 py-1.5 cursor-pointer">
+          Edit
+        </button>
+        <button className="border border-slate-200 rounded-md w-1/2 px-3 py-1.5 cursor-pointer">
+          Delete
+        </button>
+      </div>
     </div>
   );
 };

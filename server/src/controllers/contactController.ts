@@ -39,7 +39,7 @@ export const getContacts = async (
     const allContacts = await db.query.contacts.findMany();
     res.status(200).json({
       message: "All contacts added",
-      contact: allContacts,
+      contacts: allContacts,
     });
   } catch (err) {
     console.error("Something went wrong!", err);
