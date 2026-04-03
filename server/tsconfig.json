@@ -6,6 +6,8 @@
     "outDir": "./dist",
     "skipLibCheck": true,
     "esModuleInterop": true,
+    "rewriteRelativeImportExtensions":true,
+    "allowImportingTsExtensions": true,
     "types": ["node"]
   },
   "include": ["src", "drizzle.config.ts"]
